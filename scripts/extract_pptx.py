@@ -22,12 +22,24 @@ NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
     "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
 }
+NS_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
 
 def slide_sort_key(name):
     """Sort by slide number (slide1, slide2, ... slide10)."""
     m = re.search(r"slide(\d+)\.xml$", name)
     return int(m.group(1)) if m else 0
+
+
+def resolve(base_dir, target):
+    """Resolve a relative relationship target like '../notesSlides/notesSlide1.xml'."""
+    parts = []
+    for seg in (base_dir + "/" + target).split("/"):
+        if seg == "..":
+            parts.pop()
+        elif seg != ".":
+            parts.append(seg)
+    return "/".join(parts)
 
 
 def extract_paragraphs(xml_bytes):
@@ -66,18 +78,29 @@ def main():
         print(f"Error: cannot open file: {e}")
         sys.exit(1)
 
-    names = zf.namelist()
+    names = set(zf.namelist())
 
     slides = sorted(
         (n for n in names if re.match(r"ppt/slides/slide\d+\.xml$", n)),
         key=slide_sort_key,
     )
-    # notesSlideN.xml pairs with slideN.xml by number
-    notes = {
-        slide_sort_key(n): n
-        for n in names
-        if re.match(r"ppt/notesSlides/notesSlide\d+\.xml$", n)
-    }
+    # Map each slide to its notes part via the slide's own .rels file.
+    # (notesSlide part numbers do NOT reliably match slide numbers.)
+    notes = {}
+    for slide_path in slides:
+        idx = slide_sort_key(slide_path)
+        rels_path = f"ppt/slides/_rels/slide{idx}.xml.rels"
+        if rels_path not in names:
+            continue
+        try:
+            rels_root = ET.fromstring(zf.read(rels_path))
+        except ET.ParseError:
+            continue
+        for rel in rels_root.iter("{%s}Relationship" % NS_REL):
+            if rel.get("Type", "").endswith("/notesSlide"):
+                target = resolve("ppt/slides", rel.get("Target", ""))
+                if target in names:
+                    notes[idx] = target
 
     if not slides:
         print("Error: no slides found in this file.")

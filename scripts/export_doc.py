@@ -133,37 +133,45 @@ def main():
     html_path = out_path.with_suffix(".html")
     html_path.write_text(html_text, encoding="utf-8")
 
-    try:
-        import win32com.client
-        word = win32com.client.Dispatch("Word.Application")
-        word.Visible = False
-        word.DisplayAlerts = 0
+    last_err = None
+    for attempt in range(2):  # retry once: a previous Word instance may still be shutting down
         try:
-            doc = word.Documents.Open(str(html_path))
-            # Word opens HTML with images LINKED, not embedded — saving to docx
-            # would lose them. Break every link so pictures are packaged inside.
-            for collection in (doc.InlineShapes, doc.Shapes):
-                for i in range(1, collection.Count + 1):
-                    try:
-                        lf = collection(i).LinkFormat
-                        if lf is not None:
-                            lf.SavePictureWithDocument = True
-                            lf.BreakLink()
-                    except Exception:
-                        pass
-            if want_pdf:
-                doc.SaveAs2(str(out_path), FileFormat=17)  # wdFormatPDF
-            else:
-                doc.SaveAs2(str(out_path), FileFormat=16)  # wdFormatDocumentDefault (.docx)
-            doc.Close(False)
-        finally:
-            word.Quit()
-        html_path.unlink(missing_ok=True)
-        print(f"Exported: {out_path}")
-    except Exception as e:
-        print(f"Word conversion failed ({e}); kept the styled HTML: {html_path}")
-        print("Open it in a browser and Ctrl+P to save as PDF.")
-        sys.exit(1)
+            import win32com.client
+            word = win32com.client.Dispatch("Word.Application")
+            word.Visible = False
+            word.DisplayAlerts = 0
+            try:
+                doc = word.Documents.Open(str(html_path))
+                # Word opens HTML with images LINKED, not embedded — saving to docx
+                # would lose them. Break every link so pictures are packaged inside.
+                for collection in (doc.InlineShapes, doc.Shapes):
+                    for i in range(1, collection.Count + 1):
+                        try:
+                            lf = collection(i).LinkFormat
+                            if lf is not None:
+                                lf.SavePictureWithDocument = True
+                                lf.BreakLink()
+                        except Exception:
+                            pass
+                if want_pdf:
+                    doc.SaveAs2(str(out_path), FileFormat=17)  # wdFormatPDF
+                else:
+                    doc.SaveAs2(str(out_path), FileFormat=16)  # wdFormatDocumentDefault (.docx)
+                doc.Close(False)
+            finally:
+                word.Quit()
+            html_path.unlink(missing_ok=True)
+            print(f"Exported: {out_path}")
+            return
+        except Exception as e:
+            last_err = e
+            if attempt == 0:
+                import time
+                time.sleep(3)
+
+    print(f"Word conversion failed ({last_err}); kept the styled HTML: {html_path}")
+    print("Open it in a browser and Ctrl+P to save as PDF.")
+    sys.exit(1)
 
 
 if __name__ == "__main__":
