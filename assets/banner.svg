@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1e3f"/>
+      <stop offset="0.55" stop-color="#2d2a6e"/>
+      <stop offset="1" stop-color="#5b3df0"/>
+    </linearGradient>
+    <linearGradient id="book" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd76e"/>
+      <stop offset="1" stop-color="#ff9d5c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="320" rx="18" fill="url(#bg)"/>
+
+  <!-- decorative circles -->
+  <circle cx="1080" cy="60" r="90" fill="#ffffff" opacity="0.05"/>
+  <circle cx="1120" cy="250" r="130" fill="#ffffff" opacity="0.04"/>
+  <circle cx="70" cy="270" r="70" fill="#ffffff" opacity="0.05"/>
+
+  <!-- icon: open book + graduation cap -->
+  <g transform="translate(70,88)">
+    <path d="M20 60 Q70 40 120 60 L120 150 Q70 130 20 150 Z" fill="url(#book)"/>
+    <path d="M120 60 Q170 40 220 60 L220 150 Q170 130 120 150 Z" fill="#ffb84d"/>
+    <path d="M120 60 L120 150" stroke="#e07f2e" stroke-width="4"/>
+    <path d="M20 60 L120 20 L220 60 L120 100 Z" fill="#8f7bff"/>
+    <rect x="212" y="60" width="5" height="34" fill="#8f7bff"/>
+    <circle cx="214.5" cy="100" r="7" fill="#ffd76e"/>
+  </g>
+
+  <!-- title -->
+  <text x="350" y="126" font-size="64" font-weight="700" fill="#ffffff" letter-spacing="1">Lecture Notes Tutor</text>
+  <text x="352" y="178" font-size="25" fill="#cfc8ff" letter-spacing="1.5">Page-by-page AI tutoring for your courseware · Claude Code Skill</text>
+
+  <!-- feature pills -->
+  <g font-size="21" fill="#ffffff">
+    <g>
+      <rect x="350" y="212" width="192" height="42" rx="21" fill="#ffffff" opacity="0.14"/>
+      <text x="372" y="241">Page-by-page</text>
+    </g>
+    <g>
+      <rect x="558" y="212" width="118" height="42" rx="21" fill="#ffffff" opacity="0.14"/>
+      <text x="585" y="241">Quizzes</text>
+    </g>
+    <g>
+      <rect x="692" y="212" width="210" height="42" rx="21" fill="#ffffff" opacity="0.14"/>
+      <text x="714" y="241">Illustrated notes</text>
+    </g>
+    <g>
+      <rect x="918" y="212" width="180" height="42" rx="21" fill="#ffffff" opacity="0.14"/>
+      <text x="940" y="241">Web resources</text>
+    </g>
+  </g>
+</svg>

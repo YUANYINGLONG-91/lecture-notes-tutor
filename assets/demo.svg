@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <!-- window -->
+  <rect width="880" height="560" rx="12" fill="#0d1117"/>
+  <rect width="880" height="44" rx="12" fill="#161b22"/>
+  <rect y="32" width="880" height="12" fill="#161b22"/>
+  <circle cx="28" cy="22" r="7" fill="#ff5f57"/>
+  <circle cx="52" cy="22" r="7" fill="#febc2e"/>
+  <circle cx="76" cy="22" r="7" fill="#28c840"/>
+  <text x="440" y="29" font-size="15" fill="#8b949e" text-anchor="middle">Claude Code — Lecture Notes Tutor</text>
+
+  <!-- user message -->
+  <rect x="24" y="64" width="470" height="40" rx="10" fill="#1f6feb"/>
+  <text x="42" y="90" font-size="16" fill="#ffffff">Walk me through OS_Chapter3.pptx and export a PDF</text>
+
+  <!-- assistant card -->
+  <rect x="24" y="120" width="832" height="276" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="154" font-size="17" font-weight="700" fill="#e6edf3">📄 Page 12 | Process Scheduling: MLFQ</text>
+  <line x1="44" y1="168" x2="836" y2="168" stroke="#30363d"/>
+
+  <text x="44" y="196" font-size="15" fill="#ffa657">📌 Key point</text>
+  <text x="170" y="196" font-size="15" fill="#c9d1d9">Short jobs first + dynamic demotion = fast response &amp; fairness</text>
+
+  <text x="44" y="228" font-size="15" fill="#ffa657">📖 Explain</text>
+  <text x="170" y="228" font-size="15" fill="#c9d1d9">Think of MLFQ as cafeteria lanes: newcomers join the express lane,</text>
+  <text x="170" y="252" font-size="15" fill="#c9d1d9">and anyone taking too long is guided to a slower lane behind…</text>
+
+  <text x="44" y="284" font-size="15" fill="#ffa657">🔑 Key term</text>
+  <text x="170" y="284" font-size="15" fill="#c9d1d9">time slice — the max continuous run time allowed per queue</text>
+
+  <text x="44" y="316" font-size="15" fill="#ffa657">⭐ Exam tip</text>
+  <text x="170" y="316" font-size="15" fill="#c9d1d9">"Why does MLFQ avoid starvation?" — answer: periodic priority boost</text>
+
+  <text x="44" y="348" font-size="15" fill="#ffa657">🖼 Figure</text>
+  <text x="170" y="348" font-size="15" fill="#8b949e">slide12_img1.png — 3 queues; note the arrows showing demotion</text>
+
+  <rect x="44" y="364" width="330" height="22" rx="4" fill="#21262d"/>
+  <text x="54" y="380" font-size="13" fill="#8b949e">▶ Continue with pages 13–15? Just reply "go on"</text>
+
+  <!-- outcomes -->
+  <text x="24" y="428" font-size="16" font-weight="700" fill="#e6edf3">After the walkthrough, you get:</text>
+
+  <g font-size="15" fill="#c9d1d9">
+    <rect x="24" y="446" width="200" height="88" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text x="44" y="478">📋 Outline</text>
+    <text x="44" y="504" font-size="13" fill="#8b949e">modules, key points</text>
+
+    <rect x="240" y="446" width="200" height="88" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text x="260" y="478">✍️ Quizzes</text>
+    <text x="260" y="504" font-size="13" fill="#8b949e">tiered, auto-graded</text>
+
+    <rect x="456" y="446" width="200" height="88" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text x="476" y="478">📄 Notes file</text>
+    <text x="476" y="504" font-size="13" fill="#8b949e">MD / Word / PDF</text>
+
+    <rect x="672" y="446" width="184" height="88" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text x="692" y="478">🔗 Resources</text>
+    <text x="692" y="504" font-size="13" fill="#8b949e">web-picked links</text>
+  </g>
+</svg>
